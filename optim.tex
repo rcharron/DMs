@@ -1,0 +1,112 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+
+\newcommand{\PP}[1]{\mathbb{P}\left[ #1 \right ]}
+\newcommand{\EE}[1]{\mathbb{E}\left[ #1 \right ]}
+\newcommand{\ZZ}{\mathbb{Z}}
+
+\title{Optimisation -- Homework 2}
+\author{Charrondière Raphaël}
+\date{23 Avril 2015}
+\begin{document}
+\maketitle
+\section*{Exercice 1 - MINIMAL-WEIGHT-SET-COVER}
+\subsection*{Relaxation fractionnaire}
+Variables : $\forall s\in S\ 0 \leq x_s$
+
+Minimiser $$\sum_{s \in S} w_s \cdot x_s$$
+
+Sous les conditions : $$\forall e \in E \sum_{s \in S | e \in s} x_s \geq 1$$
+
+\subsection*{Dual}
+Variables : $\forall e\in E\ 0 \leq y_e$
+
+Maximiser $$\sum_{e \in E} y_e$$
+
+Sous les conditions : $$\forall s \in S \sum_{e \in E | e \in s} y_e \leq w_s$$
+
+\subsection*{Interprétation}
+
+Si la fonction poids est 1.
+
+Pour le primal, $x_s$ est 0 ou 1 suivant si le sous ensemble s est choisi pour la couverture, on minimise  le nombre de sous-ensembles choisis (fonction objectif), en imposant que chaque point soit dans au moins 1 des ensembles choisis.
+
+Pour le dual, $y_e=1$ si $e$ est choisit ou $0$ sinon, on maximise le nombre de points choisis (fonction objectif) tel que deux points choisis ne soient pas dans le même sous ensemble de S, en bref on cherche à séparer ces ensembles.
+
+\subsection*{Différence solution réelle-entière}
+
+Objectif : trouver $f$ tel que $SC*\leq f(R-SC)$
+
+\subsubsection*{Si les ensembles de S sont bornés}
+ Notons $N_0=\max{|s|\ s\in S}$
+
+$f=N_0$ répond au problème. En effet il on prend l'optimum réel, en multipliant la solution par $N_0$, la condition sur $e$ :  $\sum_{s \in S | e \in s} x_s \geq N_0$ impose qu'il existe un des termes de la somme plus grand que 1 (par définition de $N_0$). On peut donc prendre la partie entière des $x_s$ et respecter le système d'origine, l'objectif de cette solution est alors inférieur à $N_0$ fois l'objectif du système réel optimal.
+
+\subsubsection*{Si les ensembles de S ont une taille $\frac{n}{2}$}
+
+Choisissons $S_0$ formés de $\log n$ éléments de $S$ piochés uniformément.
+
+$\forall x \in E \ \forall s \in S \ \PP{x \in s}=\frac{1}{2}$
+
+$\forall x \in E \ \PP{x \in \bigcup_{s\in S_0} s}=\sum_{s_i in S_0}\PP{x \in s_i \text{ et } \forall t<i\ x \notin s_t }=\sum_{i=1}^{\log n}{\frac{1}{2^i}}=1-\frac{1}{2^{\log n}}=1-\frac{1}{n}=\frac{n-1}{n}$
+
+On prend alors $\forall i\ x_i=\frac{1}{n-1}\rightarrow 1$, ce qui en moyenne valide les conditions pour l'instance réelle.
+
+Ainsi $\EE{R-SC*}\leq \frac{n}{n-1}$
+
+Pour l'instance entière :
+
+$\PP{E=\bigcup_{s\in S_0} s}={\left(\frac{n-1}{n}\right)}^n \rightarrow \frac{1}{e}$
+
+Ainsi avec probabilité non négligeable, $SC* \leq \log n  (R-SC*)$
+
+\subsubsection*{Contre-exemple}
+
+\section*{Exercice 2 - Bland's rule}
+\subsection*{Question a}
+
+$x_j=0$ si $j\in \bar{B}\setminus s$ et $x_s=y$
+
+Pour $i \in B$ $x_i=b_i-\sum_{j\in\bar{B}}a_{ij}x_j= b_i-a_{is}y$
+
+Dans D : $z=v+\sum_{j\in \bar{B}}c_j x_j=v+c_s y$
+
+Dans D* : $z=v+\sum_{j\in \bar{B}}c_j^* x_j+\sum_{j\in B}c_j^* x_j=v+c_s^* y+\sum_{j\in B}c_j^* x_j=v+c_s^* y+\sum_{j\in B}c_j^* (b_j-a_{js}y)$
+
+Ici, l'objectif est invariant donc :
+
+$v+c_s y=v+c_s^* y+\sum_{j\in B}c_j^* (b_j-a_{js}y)$
+
+\subsection*{Question b}
+
+Montrons $\sum_{j\in B}c_j^* b_j=0$. En fait si ce n'est pas le cas l'objectif augmente, donc on n'est pas dans le cyle.
+
+Ensuite $y\neq 0$ sinon $z = v$ et le simplexe a finit.
+
+Donc de a on a $y\left (c_s-c_s*+\sum_{j\in B}c_j^* a_{js}\right )=0$
+
+D'où $c_s-c_s*+\sum_{j\in B}c_j^* a_{js}=0$
+
+
+\subsection*{Question c}
+
+Si $c_s\leq 0$ alors le simplex a fini, ce qui n'est pas le cas donc $c_s>0$
+
+\subsection*{Question d}
+
+$s$ étant le plus petit index sortant $c_s^*<0$, sinon $x_s$ sort dans D*
+
+\subsection*{Question e} 
+
+Utilisant b, c et d on a immédiatement $\sum_{j\in B}c_j^* a_{js}<0$, donc il existe $r \in B$ tel que $c_r^* a_{rs}<0$
+
+\subsection*{Question f} 
+
+%Comme les variables sont toutes positives, $\forall i b_i>0$. Donc xmq
+
+%On a $y\geq 0$ 
+\end{document}
