@@ -98,7 +98,7 @@ Si $c_s\leq 0$ alors le simplex a fini, ce qui n'est pas le cas donc $c_s>0$
 
 \subsection*{Question d}
 
-$s$ étant le plus petit index sortant $c_s^*<0$, sinon $x_s$ sort dans D*
+$s$ étant le plus petit index sortant $c_s^*<0$, sinon $x_s$ entre dans D*
 
 \subsection*{Question e} 
 
@@ -106,7 +106,51 @@ Utilisant b, c et d on a immédiatement $\sum_{j\in B}c_j^* a_{js}<0$, donc il e
 
 \subsection*{Question f} 
 
+\subsection*{Question g} 
+
+\subsection*{Question h} 
+
+De même qu'en d, comme $r\neq t$ $c_r^* \leq 0$ en donc (e) $a_{rs}>0$.
+
+\subsection*{Question i} 
+
+\subsection*{Question j} 
+
 %Comme les variables sont toutes positives, $\forall i b_i>0$. Donc xmq
 
 %On a $y\geq 0$ 
+
+
+\section*{Exercice 3}
+
+Variables :
+\begin{description}
+\item[Gains] $g_1,g_2,g_3,g_4$
+\item[Nombre fabricants] $b_1,b_2,b_3,b_4\geq 0$
+\item[Nombre formeurs] $t_1,t_2,t_3\geq 0$
+\item[Nombre formés] $s_1,s_2,s_3\geq 0$
+\item[Nombre ouvriers] $w_1,w_2,w_3,w_4\geq 0$
+\item[Constantes]
+\begin{itemize}
+\item
+\item[$w_0$] nombre initial de salariés = 40
+\item[$p_i$] gain net par téléphone fabriqué (payé par le client la ième semaine moins le prix de fabrication.)
+\end{itemize}
+\end{description}
+
+
+Objectif : $$\text{Maximise }g_1+g_2+g_3+g_4$$
+
+Conditions : 
+
+Sur les employés :
+$$w_i =  w_{i-1}+s_i$$
+$$b_i+t_i+s_i\leq w_i$$
+$$s_i=30\cdot t_i$$
+
+Sur les gains :
+$$g_i = 50\cdot p_i \cdot b_i-200\cdot w_i+100\cdot s_i$$
+$$b_1+b_2+b_3+b_4\leq \frac{20000}{5}$$
+
+
 \end{document}
