@@ -1,0 +1,41 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+
+\newcommand{\PP}[1]{\mathbb{P}\left[ #1 \right ]}
+\newcommand{\EE}[1]{\mathbb{E}\left[ #1 \right ]}
+
+\title{APVS -- DM 3}
+\author{Charrondière Raphaël}
+\date{24 Avril 2015}
+\begin{document}
+\maketitle
+\section*{Warmup on CPOs}
+\subsection*{Question 1}
+$A$, $B$ are $\omega-CPOS$
+
+$A\times B$ is one too : we set $\leq_{A\times B}$ natural product order.
+
+$\bot_{A\times B}=(\bot_A,\bot_B)$ by definition on the order $\forall a\in A,b\in B\ (\bot_A,\bot_B)\leq (a,b)$ because $a\leq\bot_A$ and $v\leq\bot_B$
+
+Take an increasing sequence $(a_n,b_n)_n \in (A\times B)^\mathbb{N}$ by definition of the order $(a_n)_n, (b_n)_n$ are increasing so, they have a sup, call them $a,b$. Show $(a,b)$ is the sup of $(a_n,b_n)_n$. First it si greater than all term of the sequence. Then if we have another sup $(a',b')$ $a'$ is greater than all $a_n$, and same for b. Then either $a'\leq a$, either $a_n$ has not a least lower sup, which is impossible because A is an $\omega-CPOS$. Same for b. So $(a,b)\leq (a',b')$
+
+For the  $\omega-CPOS$ 1 we just take it equal to {1} with relation $1\leq 1$. Obviously all map $A \rightarrow 1$ are Scott-continuous and unique.
+
+\subsection*{Question 2}
+
+%[Y ! Z?]  [X ! Y?] ! [X ! Z?]
+
+\subsection*{Question 3}
+\subsection*{Question 4}
+\subsection*{Question 5}
+\subsection*{Question 6}
+\subsection*{Question 7}
+\subsection*{Question 8}
+\subsection*{Question 9}
+\subsection*{Question 10}
+\subsection*{Question 11}
+\end{document}
