@@ -8,8 +8,10 @@
 \newcommand{\PP}[1]{\mathbb{P}\left[ #1 \right ]}
 \newcommand{\EE}[1]{\mathbb{E}\left[ #1 \right ]}
 \newcommand{\N}{\mathbb{N}}
+\newcommand{\M}{\mathcal{M}}
 \newcommand{\oCPO}{$\omega$-CPO }
-
+\newcommand{\Cr}[1]{[\![#1]\!]}
+\newcommand{\Co}[1]{\left \langle #1 \right \rangle}
 \title{APVS -- DM 3}
 \author{Charrondière Raphaël}
 \date{24 Avril 2015}
@@ -59,9 +61,79 @@ Vérifions que $F$ soit Scott-continue.
 $F$ est croissante : si $f\leq g$ $\forall n \in \N f^n(\bot_A)\leq g^n(\bot_A)$ (par définition de l'ordre sur les fonctions) donc $\sup_n f^n(\bot_A) \leq \sup_n g^n(\bot_A)$ c'est à dire $F(f)\leq F(g)$
 
 Soit $f_n$ une suite croissante $F(\sup f_n)=\sup_k \sup_n f_n^k(\bot_A)=\sup_n \sup_k f_n^k(\bot_A)=\sup_n F(f_n)$
+
+
 \subsection*{Question 4}
+
+On utilise ici la fonction $Cond : (\M \rightarrow \{ true, false \}) \times [\M \rightarrow \M_\bot] \times [\M \rightarrow \M_\bot] \rightarrow [\M \rightarrow \M_\bot]$ définie en cours qui est continue.
+
+\begin{itemize}
+    \item $C = \texttt{skip}$. 
+    
+    Alors on prend $\Cr{C} = Id_\M \in [\M \rightarrow \M_\bot]$. On a bien $\Co{C, \sigma} \Downarrow \sigma'$  si et seulement si  $\Cr{C}(\sigma) = \sigma'$.
+    
+    \item $C = C' ; C''$. 
+    
+    On définit $\Cr{C}= \Cr{C''} \circ \Cr{C'}$ (Cf question 2).
+    
+      On a $\Cr{C} \in [\M \rightarrow \M_\bot]$ et $\Co{C, \sigma} \Downarrow \sigma' \Leftrightarrow\exists \sigma''$ $\Co{C', \sigma} \Downarrow \sigma''$ et $\Co{C'', \sigma''} \Downarrow \sigma'\Leftrightarrow\Cr{C''}(\Cr{C'}(\sigma)) = \sigma'$ 
+      
+      Donc d'après la règle d'inférence $\Cr{C}=\Cr{C' ; C''}$
+    
+    \item $C = \texttt{r := a}$ 
+    
+    On définit $\Cr{C} = \sigma \mapsto \sigma\Co{\mathcal{A}[e]\sigma/r}$.
+    
+    \item $C = \texttt{if } b \texttt{ then } C_1 \texttt{ else } C_2$. 
+    
+    On définit $\Cr{C} = Cond(\mathcal{B}(b), C_1, C_2) \in [\M \rightarrow \M_\bot]$ qui est valide par définition de $Cond$.
+    
+    \item $C = \texttt{while } b \texttt{ do } C'$. 
+    
+    On définit $\Cr{C} = F(f \mapsto Cond(\mathcal{B}(b),  f\circ \Cr{C'}, Id_\M))$ (Cf question 3) qui est valide car $C'$ est ré-exécutée  tant que b est vrai.
+    
+      $f \mapsto Cond(\mathcal{B}(b), C' \circ f, Id_\M)$ est continue comme composé de fonctions continue (Cf question 2). Donc $\Cr{C}$ est bien définie (et continue).
+\end{itemize}
+
 \subsection*{Question 5}
+
+Notation : Soit $I \in T(A)$ quelconque. On note alors $I_1 : \M_\bot \rightarrow A$ et $I_2 : \M_\bot \rightarrow \M_\bot$ les deux projections naturelles associées à $I$.
+
+On pose alors $T(f)(I) = \sigma \mapsto (f(I_1(\sigma)), I_2(\sigma))$. Naturellement $T\in (A \rightarrow B) \rightarrow (T(A)\rightarrow T(B))$
+
+$\forall I\in T(A), \ T(Id_A)(I)=(Id_A(I_1),I_2)=(I_1,I_2)=I$ donc $T(Id_A)(I)=Id_{T(A)}$.
+
+Soient $f,g$ $\forall I\in T(A),\ T(g\circ f)(I)=(g\circ f(I_1),I_2)=T(g)(f(I_1),I_2)=T(g)\circ T(f)(I)$
+
+Enfin $T(f)$ est continue : on a vu que l'on conservait la continuité par composition, couplage. Considérons que l'ordre sur les couples est l'ordre produit, ce qui permet d'affirmer que la continuité est conservée par projection. Ainsi T est continue.
+
+
 \subsection*{Question 6}
+
+On pose $\eta_A(a) = \sigma \mapsto (a, \sigma)$ et $\mu_A(I) = \sigma \mapsto I_1(\sigma)(I_2(\sigma))$. 
+
+$\eta_A$ est trivialement continue et $\mu_A$ l'est aussi comme composition de fonctions continues ($I_1$ et $I_2$ le sont).
+
+\begin{itemize}
+\item Soit $I \in T(A)$ et $\sigma \in \M$.
+
+  On a $(\mu_A \circ T(\eta_A))(I)(\sigma) = (\mu_A(T(\eta_A)(I)))(\sigma) = (\mu_A(\sigma' \mapsto (\eta_A(I_1(\sigma')), I_2(\sigma')))(\sigma)$
+  
+   $ = (\sigma' \mapsto (\eta_A(I_1(\sigma'))))(\sigma)((\sigma' \mapsto I_2(\sigma'))(\sigma)) = \eta_A (I_1(\sigma))(I_2(\sigma)) = (I_1(\sigma), I_2(\sigma)) = I(\sigma)$.
+
+De même on a $(\mu_A \circ \eta_{T(A)})(I)(\sigma) = (\mu_A(\eta_{T(A)}(I)))(\sigma) = (\mu_A(\sigma' \mapsto (I, \sigma')))(\sigma) = (\sigma' \mapsto I)(\sigma)('\sigma' \mapsto \sigma')(\sigma)) = I(\sigma)$.
+
+Ainsi on a bien $\mu_A \circ T(\eta_A) = \mu_A \circ \eta_{T(A)} = Id_{T(A)}$.
+
+\item Soit $I \in T(T(T(A)))$.
+
+ On a $(\mu_A \circ \mu_{T(A)})(I) = \mu_A(\mu_{T(A)}(I)) = \mu_A(\sigma' \mapsto I_1(\sigma')(I_2(\sigma'))) = \sigma \mapsto {I_1}_1(\sigma)(I_2(\sigma))({I_1}_2(\sigma)(I_2(\sigma)))$
+
+De plus $(\mu_A \circ T(\mu_A))(I) = \mu_A(T(\mu_A)(I)) = \mu_A(\sigma' \mapsto (\mu_A(I_1(\sigma')), I_2(\sigma'))) = \sigma \mapsto (\mu_A(I_1(\sigma)))(I_2(\sigma)) = \sigma \mapsto (\sigma' \mapsto {I_1}_1(\sigma)(\sigma')({I_1}_2(\sigma)(\sigma')))(I_2(\sigma)) = \sigma \mapsto {I_1}_1(\sigma)(I_2(\sigma))({I_1}_2(\sigma)(I_2(\sigma))))$
+ 
+ Donc on a bien $\mu_A \circ \mu_{T(A)} = \mu_A \circ T(\mu_A)$.
+ 
+ \end{itemize}
 \subsection*{Question 7}
 \subsection*{Question 8}
 \subsection*{Question 9}
