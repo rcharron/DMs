@@ -13,6 +13,8 @@
 \newcommand{\oCPO}{$\omega$-CPO }
 \newcommand{\Cr}[1]{[\![#1]\!]}
 \newcommand{\Co}[1]{\left \langle #1 \right \rangle}
+\newcommand{\comp}{\text{comp}}
+\newcommand{\bool}{\mathcal{B}\textit{ool}}
 \title{APVS -- DM 3}
 \author{Charrondière Raphaël}
 \date{24 Avril 2015}
@@ -69,11 +71,11 @@ Soit $f_n$ une suite croissante $F(\sup f_n)=\sup_k \sup_n f_n^k(\bot_A)=\sup_n 
 On utilise ici la fonction $Cond : (\M \rightarrow \{ true, false \}) \times [\M \rightarrow \M_\bot] \times [\M \rightarrow \M_\bot] \rightarrow [\M \rightarrow \M_\bot]$ définie en cours qui est continue.
 
 \begin{itemize}
-    \item $C = \texttt{skip}$. 
+    \item $C = \texttt{skip}$
     
-    Alors on prend $\Cr{C} = Id_\M \in [\M \rightarrow \M_\bot]$. On a bien $\Co{C, \sigma} \Downarrow \sigma'$  si et seulement si  $\Cr{C}(\sigma) = \sigma'$.
+   On définit $\Cr{C} = Id_\M \in [\M \rightarrow \M_\bot]$. On a $\Co{C, \sigma} \Downarrow \sigma'$  si et seulement si  $\Cr{C}(\sigma) = \sigma'$.
     
-    \item $C = C' ; C''$. 
+    \item $C = C' ; C''$
     
     On définit $\Cr{C}= \Cr{C''} \circ \Cr{C'}$ (Cf question 2).
     
@@ -85,11 +87,11 @@ On utilise ici la fonction $Cond : (\M \rightarrow \{ true, false \}) \times [\M
     
     On définit $\Cr{C} = \sigma \mapsto \sigma\Co{\mathcal{A}[e]\sigma/r}$.
     
-    \item $C = \texttt{if } b \texttt{ then } C_1 \texttt{ else } C_2$. 
+    \item $C = \texttt{if } b \texttt{ then } C_1 \texttt{ else } C_2$
     
     On définit $\Cr{C} = Cond(\mathcal{B}(b), C_1, C_2) \in [\M \rightarrow \M_\bot]$ qui est valide par définition de $Cond$.
     
-    \item $C = \texttt{while } b \texttt{ do } C'$. 
+    \item $C = \texttt{while } b \texttt{ do } C'$
     
     On définit $\Cr{C} = F(f \mapsto Cond(\mathcal{B}(b),  f\circ \Cr{C'}, Id_\M))$ (Cf question 3) qui est valide car $C'$ est ré-exécutée  tant que b est vrai.
     
@@ -98,46 +100,119 @@ On utilise ici la fonction $Cond : (\M \rightarrow \{ true, false \}) \times [\M
 
 \subsection*{Question 5}
 
-Notation : Soit $I \in T(A)$ quelconque. On note alors $I_1 : \M_\bot \rightarrow A$ et $I_2 : \M_\bot \rightarrow \M_\bot$ les deux projections naturelles associées à $I$.
+Notation : Soit $I \in T\left (A\right )$ quelconque. On note alors $I_1 : \M_\bot \rightarrow A$ et $I_2 : \M_\bot \rightarrow \M_\bot$ les deux projections naturelles associées à $I$.
 
-On pose alors $T(f)(I) = \sigma \mapsto (f(I_1(\sigma)), I_2(\sigma))$. Naturellement $T\in (A \rightarrow B) \rightarrow (T(A)\rightarrow T(B))$
+On pose alors $T\left (f\right )\left (I\right ) = \sigma \mapsto \left (f\left (I_1\left (\sigma\right )\right ), I_2\left (\sigma\right )\right )$. Naturellement $T\in \left (A \rightarrow B\right ) \rightarrow \left (T\left (A\right )\rightarrow T\left (B\right )\right )$
 
-$\forall I\in T(A), \ T(Id_A)(I)=(Id_A(I_1),I_2)=(I_1,I_2)=I$ donc $T(Id_A)(I)=Id_{T(A)}$.
+$\forall I\in T\left (A\right ), \ T\left (Id_A\right )\left (I\right )=\left (Id_A\left (I_1\right ),I_2\right )=\left (I_1,I_2\right )=I$ donc $T\left (Id_A\right )\left (I\right )=Id_{T\left (A\right )}$.
 
-Soient $f,g$ $\forall I\in T(A),\ T(g\circ f)(I)=(g\circ f(I_1),I_2)=T(g)(f(I_1),I_2)=T(g)\circ T(f)(I)$
+Soient $f,g$ $\forall I\in T\left (A\right ),\ T\left (g\circ f\right )\left (I\right )=\left (g\circ f\left (I_1\right ),I_2\right )=T\left (g\right )\left (f\left (I_1\right ),I_2\right )=T\left (g\right )\circ T\left (f\right )\left (I\right )$
 
-Enfin $T(f)$ est continue : on a vu que l'on conservait la continuité par composition, couplage. Considérons que l'ordre sur les couples est l'ordre produit, ce qui permet d'affirmer que la continuité est conservée par projection. Ainsi T est continue.
+Enfin $T\left (f\right )$ est continue : on a vu que l'on conservait la continuité par composition, couplage. Considérons que l'ordre sur les couples est l'ordre produit, ce qui permet d'affirmer que la continuité est conservée par projection. Ainsi T est continue.
 
 
 \subsection*{Question 6}
 
-On pose $\eta_A(a) = \sigma \mapsto (a, \sigma)$ et $\mu_A(I) = \sigma \mapsto I_1(\sigma)(I_2(\sigma))$. 
+On pose $\eta_A\left (a\right ) = \sigma \mapsto \left (a, \sigma\right )$ et $\mu_A\left (I\right ) = \sigma \mapsto I_1\left (\sigma\right )\left (I_2\left (\sigma\right )\right )$. 
 
-$\eta_A$ est trivialement continue et $\mu_A$ l'est aussi comme composition de fonctions continues ($I_1$ et $I_2$ le sont).
+$\eta_A$ est trivialement continue et $\mu_A$ l'est aussi comme composition de fonctions continues  ($I_1$ et $I_2$ le sont ).
 
 \begin{itemize}
-\item Soit $I \in T(A)$ et $\sigma \in \M$.
+\item Soit $I \in T\left (A\right )$ et $\sigma \in \M$.
 
-  On a $(\mu_A \circ T(\eta_A))(I)(\sigma) = (\mu_A(T(\eta_A)(I)))(\sigma) = (\mu_A(\sigma' \mapsto (\eta_A(I_1(\sigma')), I_2(\sigma')))(\sigma)$
+  On a $\left (\mu_A \circ T\left (\eta_A\right )\right )\left (I\right )\left (\sigma\right ) = \left (\mu_A\left (T\left (\eta_A\right )\left (I\right )\right )\right )\left (\sigma\right ) = \left (\mu_A\left (\sigma' \mapsto \left (\eta_A\left (I_1\left (\sigma'\right )\right ), I_2\left (\sigma'\right )\right )\right )\left (\sigma \right )\right )$
   
-   $ = (\sigma' \mapsto (\eta_A(I_1(\sigma'))))(\sigma)((\sigma' \mapsto I_2(\sigma'))(\sigma)) = \eta_A (I_1(\sigma))(I_2(\sigma)) = (I_1(\sigma), I_2(\sigma)) = I(\sigma)$.
+   $ = \left (\sigma' \mapsto \left (\eta_A\left (I_1\left (\sigma'\right )\right )\right )\right )\left (\sigma\right )\left (\left (\sigma' \mapsto I_2\left (\sigma'\right )\right )\left (\sigma\right )\right ) = \eta_A \left (I_1\left (\sigma\right )\right )\left (I_2\left (\sigma\right )\right ) = \left (I_1\left (\sigma\right ), I_2\left (\sigma\right )\right ) = I\left (\sigma\right )$.
 
-De même on a $(\mu_A \circ \eta_{T(A)})(I)(\sigma) = (\mu_A(\eta_{T(A)}(I)))(\sigma) = (\mu_A(\sigma' \mapsto (I, \sigma')))(\sigma) = (\sigma' \mapsto I)(\sigma)('\sigma' \mapsto \sigma')(\sigma)) = I(\sigma)$.
+De même on a $\left (\mu_A \circ \eta_{T\left (A\right )}\right )\left (I\right )\left (\sigma\right ) = \left (\mu_A\left (\eta_{T\left (A\right )}\left (I\right )\right )\right )\left (\sigma\right ) = \left (\mu_A\left (\sigma' \mapsto \left (I, \sigma'\right )\right )\right )\left (\sigma\right ) = \left (\sigma' \mapsto I\right )\left (\sigma\right )\left (\left (\sigma' \mapsto \sigma'\right )\left (\sigma\right )\right ) = I\left (\sigma\right )$.
 
-Ainsi on a bien $\mu_A \circ T(\eta_A) = \mu_A \circ \eta_{T(A)} = Id_{T(A)}$.
+Ainsi on a bien $\mu_A \circ T\left (\eta_A\right ) = \mu_A \circ \eta_{T\left (A\right )} = Id_{T\left (A\right )}$.
 
-\item Soit $I \in T(T(T(A)))$.
+\item Soit $I \in T\left (T\left (T\left (A\right )\right )\right )$.
 
- On a $(\mu_A \circ \mu_{T(A)})(I) = \mu_A(\mu_{T(A)}(I)) = \mu_A(\sigma' \mapsto I_1(\sigma')(I_2(\sigma'))) = \sigma \mapsto {I_1}_1(\sigma)(I_2(\sigma))({I_1}_2(\sigma)(I_2(\sigma)))$
+ On a $\left (\mu_A \circ \mu_{T\left (A\right )}\right )\left (I\right ) = \mu_A\left (\mu_{T\left (A\right )}\left (I\right )\right ) = \mu_A\left (\sigma' \mapsto I_1\left (\sigma'\right )\left (I_2\left (\sigma'\right )\right )\right ) = \sigma \mapsto {I_1}_1\left (\sigma\right )\left (I_2\left (\sigma\right )\right )\left ({I_1}_2\left (\sigma\right )\left (I_2\left (\sigma\right )\right )\right )$
 
-De plus $(\mu_A \circ T(\mu_A))(I) = \mu_A(T(\mu_A)(I)) = \mu_A(\sigma' \mapsto (\mu_A(I_1(\sigma')), I_2(\sigma'))) = \sigma \mapsto (\mu_A(I_1(\sigma)))(I_2(\sigma)) = \sigma \mapsto (\sigma' \mapsto {I_1}_1(\sigma)(\sigma')({I_1}_2(\sigma)(\sigma')))(I_2(\sigma)) = \sigma \mapsto {I_1}_1(\sigma)(I_2(\sigma))({I_1}_2(\sigma)(I_2(\sigma))))$
+De plus $\left (\mu_A \circ T\left (\mu_A\right )\right )\left (I\right ) = \mu_A\left (T\left (\mu_A\right )\left (I\right )\right ) = \mu_A\left (\sigma' \mapsto \left (\mu_A\left (I_1\left (\sigma'\right )\right ), I_2\left (\sigma'\right )\right )\right ) =$ 
+$ \sigma \mapsto \left (\mu_A\left (I_1\left (\sigma\right )\right )\right )\left (I_2\left (\sigma\right )\right ) = \sigma \mapsto \left (\sigma' \mapsto {I_1}_1\left (\sigma\right )\left (\sigma'\right )\left ({I_1}_2\left (\sigma\right )\left (\sigma'\right )\right )\right )\left (I_2\left (\sigma\right )\right ) $
+$= \sigma \mapsto {I_1}_1\left (\sigma\right )\left (I_2\left (\sigma\right )\right )\left ({I_1}_2\left (\sigma\right )\left (I_2\left (\sigma\right )\right )\right )$
  
- Donc on a bien $\mu_A \circ \mu_{T(A)} = \mu_A \circ T(\mu_A)$.
+ Donc on a bien $\mu_A \circ \mu_{T\left (A\right )} = \mu_A \circ T\left (\mu_A\right )$.
  
  \end{itemize}
+ 
 \subsection*{Question 7}
+
+Posons $s:\left (I, b\right )\in \left (T\left (A\right )\times B\right )\mapsto \left (\left (I_1, b\right ), I_2\right )\in T\left (A\times B\right )$ qui est continue par composition, couplage, projections.
+
+$s\left (\eta_A\left (a\right ), b\right ) = s\left (\sigma \mapsto \left (a, \sigma\right ), b\right ) = \sigma \mapsto \left (\left (a, b\right ), \sigma\right ) = \eta_{A \times B}\left (a, b\right )$.
+
+
+
+
+
+On a ainsi deux applications ``naturelles" $s_1$ et $s_2$ de $T\left (A\right ) \times T\left (B\right ) \rightarrow T\left (A \times B\right )$ 
+
+avec $\forall \left (I, J\right ) \in T\left (A\right ) \times T\left (B\right ),\  $ $s_1\left (I, J\right ) = \sigma \mapsto \left (\left (I_1\left (\sigma\right ), J_1\left (\sigma\right )\right ), I_2\left (J_2\left (\sigma\right )\right )\right )$ et $s_2\left (I, J\right ) = \sigma \mapsto \left (\left (I_1\left (\sigma\right ), J_1\left (\sigma\right )\right ), J_2\left (I_2\left (\sigma\right )\right )\right )$. Elles sont de même continues.
+
+
+Avec A=B=1, en simplifiant on écrit $s1:\left (I,J\right )\mapsto I \circ J$ $s1:\left (I,J\right )\mapsto J \circ I$ donc elles sont différentes et  $sq = s_2$
+
 \subsection*{Question 8}
+
+On définie la fonction $C \mapsto \Cr{C}_A$ par induction sur la structure de $C$.
+
+On utilise la fonction $Cond : \left (\M \rightarrow \{ true, false \}\right ) \times P\left (A\right ) \times P\left (A\right )\rightarrow P\left (A\right )$ adapté de celle utilisé à la question 4. Elle est continue pour les mêmes raisons.
+
+\begin{itemize}
+    \item $C = \texttt{skip}$
+    
+    On définit $\Cr{C}_A = \sigma \mapsto \left (\bot_A, \sigma\right ) \in T\left (A\right )$. On a $\Co{C, \sigma} \Downarrow \sigma'$ si et seulement si $\exists a \Cr{C}_A\left (\sigma\right ) = \left (a, \sigma'\right )$.
+    
+    \item $C = C' ; C$
+    
+    Soit $\sigma$, on pose $ \left (\left (a_1,a_2\right ),S\right )=sq\left ([\Cr{C''}_A,\Cr{C'}_A\right )\left (\sigma\right )$ 
+    
+    On définit alors $\Cr{C}_A\left (\sigma\right ) =\left ( \left (\comp\left (a_1,a_2\right )\right ), S\right )$. On a bien $\Cr{C}_A \in T\left (A\right )$ par composition. 
+    On a $\Co{C, \sigma} \Downarrow \sigma'$ si et seulement si  $\exists \sigma'' \: \exists a, a' \in A$ $\Cr{C'}_A\left (\sigma\right ) = \left (a, \sigma''\right )$ et $\Cr{C''}_A\left (\sigma''\right ) = \left (a', \sigma'\right )$ c'est à dire $\exists a \in A \: \Cr{C''}_A\left ({\Cr{C'}_A}_1\left (\sigma\right )\right ) = \left (a, \sigma'\right )$ ce que l'on voulait.
+    
+    \item $C = \texttt{r := a}$
+    
+     On définit $\Cr{C}_A = \sigma \mapsto w_r\left (\mathcal{A}[e]\right )$ qui est continue et vérifie la propriété par hypothèse.
+    
+    \item $C = \texttt{if } b \texttt{ then } C_1 \texttt{ else } C_2$
+
+        On définit $\Cr{C} = Cond\left (\mathcal{B}\left (b\right ), C_1, C_2\right )$. Idem à la question 4.
+    
+    \item $C = \texttt{while } b \texttt{ do } C'$
+    
+    On définit  $iter\left (f\right ) = \sigma \mapsto \left (\comp\left (sq\left (\Cr{C'}, f\right )_1\left (\sigma\right )\right ), seq\left (\Cr{C'}, f\right )_2\left (\sigma\right )\right )$.
+     
+     On prend $\Cr{C}_A = F\left (f \mapsto Cond\left (\mathcal{B}\left (b\right ), iter\left (f\right ), Id\right )\right )$ (Cf question 3). La définition est valide car $f \mapsto Cond\left (\mathcal{B}\left (b\right ), iter\left (f\right ), Id_\M\right )$ est continue comme composé de fonctions continue. Donc $\Cr{C}_A$ convient comme à la question 4.
+\end{itemize}
+
 \subsection*{Question 9}
+
+Ici on définit $\comp$ par l'addition avec $\bot_\N$ interprété comme 0. On fixe $w_r(n)\rightarrow (1,\Co{n/r})$
+
+Ainsi si $\Cr{C}(\sigma)=(n,\sigma')$ l'exécution de $C$ a opéré n fois la commande $\texttt{r := a}$, qui correspond au nombre d'écriture mémoire.
+
 \subsection*{Question 10}
-\subsection*{Question 11}
+
+On peut se servir de $A$ pour stocker un booléen indiquant s'il y a eu un \texttt{abort}. $A$ devient $A\times \bool$.
+
+\begin{itemize}
+\item On définit alors  $[[\texttt{abort}]](\sigma)=((\bot_A,tt),\sigma)$
+
+\item Pour la séquence $C = C' ; C$
+    
+    Soit $\sigma$, on pose $ \left (\left ((a_1,b_1),(a_2,b2)\right ),S\right )=sq\left ([\Cr{C''}_A,\Cr{C'}_A\right )\left (\sigma\right )$ 
+    
+    On définit alors $\Cr{C}_A\left (\sigma\right ) =\left ( \left (\comp\left (a_1,a_2\right ),ff\right ), S\right )$ si $b_1=b_2=ff$ ou $\left ( \left ( a_1 ,tt\right ), S\right )$ sinon .
+    
+    \item Pour les boucles on procède similairement.
+
+\end{itemize}
+
+Ainsi l'état mémoire renvoyé est celui juste après le premier \texttt{abort} rencontré.
+
 \end{document}
