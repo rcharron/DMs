@@ -7,6 +7,8 @@
 
 \newcommand{\PP}[1]{\mathbb{P}\left[ #1 \right ]}
 \newcommand{\EE}[1]{\mathbb{E}\left[ #1 \right ]}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\oCPO}{$\omega$-CPO }
 
 \title{APVS -- DM 3}
 \author{Charrondière Raphaël}
@@ -15,21 +17,48 @@
 \maketitle
 \section*{Warmup on CPOs}
 \subsection*{Question 1}
-$A$, $B$ are $\omega-CPOS$
+$A$, $B$ sont des \oCPO s
 
-$A\times B$ is one too : we set $\leq_{A\times B}$ natural product order.
+$A\times B$ en est aussi : on définit $\leq_{A\times B}$ l'ordre naturel sur les produits.
 
-$\bot_{A\times B}=(\bot_A,\bot_B)$ by definition on the order $\forall a\in A,b\in B\ (\bot_A,\bot_B)\leq (a,b)$ because $a\leq\bot_A$ and $v\leq\bot_B$
+$\bot_{A\times B}=(\bot_A,\bot_B)$ : par définition $\forall a\in A,b\in B\ (\bot_A,\bot_B)\leq (a,b)$ car $a\leq\bot_A$ and $v\leq\bot_B$
 
-Take an increasing sequence $(a_n,b_n)_n \in (A\times B)^\mathbb{N}$ by definition of the order $(a_n)_n, (b_n)_n$ are increasing so, they have a sup, call them $a,b$. Show $(a,b)$ is the sup of $(a_n,b_n)_n$. First it si greater than all term of the sequence. Then if we have another sup $(a',b')$ $a'$ is greater than all $a_n$, and same for b. Then either $a'\leq a$, either $a_n$ has not a least lower sup, which is impossible because A is an $\omega-CPOS$. Same for b. So $(a,b)\leq (a',b')$
+Prenons une suite croissante $(a_n,b_n)_n \in (A\times B)^\mathbb{N}$. Par définition de l'ordre $(a_n)_n, (b_n)_n$ sont aussi croissantes, donc ont un sup, notons les $a,b$. Montrons $(a,b)$ est le sup de $(a_n,b_n)_n$. De un, il est plus grand que tout les termes de la suite. Prenons le sup $(a',b')$ $a'$ est plus grand que tout les $a_n$, de même pour b. Donc soit $a'\leq a$, soit $a_n$ n'a pas de sup, ce qui est impossible car A est un $\omega-CPOS$. Idem pour  b. Donc $(a,b)\leq (a',b')$
 
-For the  $\omega-CPOS$ 1 we just take it equal to {1} with relation $1\leq 1$. Obviously all map $A \rightarrow 1$ are Scott-continuous and unique.
+Pour l'\oCPO 1 on prend le singleton {1} munit de la relation $1\leq 1$. Trivialement toute fonction $A \rightarrow 1$ est Scott-continue et unique.
 
 \subsection*{Question 2}
+On définit $\circ : [Y \rightarrow Z_\bot] \times [X \rightarrow Y_\bot] \rightarrow [X \rightarrow Z_\bot]$ par 
+$$\forall x \in X,  f\circ g(x) = \bot \text{ si } g(x) = \bot $$  $$f\circ g(x) =f(g(x)) \text{ sinon}$$
 
-%[Y ! Z?]  [X ! Y?] ! [X ! Z?]
+On notera $\circ$ comme un opérateur binaire
+
+\begin{itemize}
+    \item Elle est monotone. Si $(f, g) \leq (f', g')$ deux cas :
+    \begin{itemize}
+        \item si $f(x) = \bot$ alors $f\circ g(x) = \bot \leq f'\circ g'(x)$ (car $f'\circ g'(x) \in Z$) 
+        \item si $f(x) \neq \bot$ $f\circ g(x) = f(g(x)) \leq f'(g'(x)) = f\circ g(x)$ (car $f'$ est monotone et comme $g' \geq g$, $g'(x) \geq g(x) > \bot$ donc $g'(x) \neq \bot$).
+    \end{itemize}
+    \item Soit $(f_n, g_n)_{n \in \N}$ une suite croissante. On pose $(f, g) = \sup (f_n, g_n)$. Soit $x \in X$ quelconque. Deux cas :
+    \begin{itemize}
+        \item $\forall n \: g_n(x) = \bot$ alors $g(x) = \bot$ par continuité et $\circ(\sup (f_n, g_n))(x) = f\circ g(x) = \bot = \sup f_n\circ g_n(x)$.
+        \item $\exists m \: g_m(x) \neq \bot$ alors par croissance $\forall n \geq m \: g_n(x) \neq \bot$ donc $g(x) \neq \bot$ et $\circ(\sup (f_n, g_n))(x) = f\circ g(x) = f(g(x)) = \sup_{n \geq m} f_n(g_n(x)) = \sup f_n\circ g_n(x)$.
+    \end{itemize}
+\end{itemize}
 
 \subsection*{Question 3}
+
+Pour répondre à $f(F(f))=F(f)$, $F$ cherche un point fixe de $f$. 
+
+Prenons $F:f\in [A \rightarrow A] \rightarrow \sup_n f^n(\bot_A) \in A$
+
+A est un \oCPO donc F est bien définie.
+
+Vérifions que $F$ soit Scott-continue.
+
+$F$ est croissante : si $f\leq g$ $\forall n \in \N f^n(\bot_A)\leq g^n(\bot_A)$ (par définition de l'ordre sur les fonctions) donc $\sup_n f^n(\bot_A) \leq \sup_n g^n(\bot_A)$ c'est à dire $F(f)\leq F(g)$
+
+Soit $f_n$ une suite croissante $F(\sup f_n)=\sup_k \sup_n f_n^k(\bot_A)=\sup_n \sup_k f_n^k(\bot_A)=\sup_n F(f_n)$
 \subsection*{Question 4}
 \subsection*{Question 5}
 \subsection*{Question 6}
