@@ -1,0 +1,93 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\EE}[1]{\mathbb{E}\left[ #1 \right ]}
+\newcommand{\Ens}[2]{[\![#1,#2 ]\!]}
+\newcommand{\OO}[1]{\mathcal{O}\left( #1 \right )}
+
+\title{Calcul formel -- DM 3}
+\author{Charrondière Raphaël}
+\date{07 Mai 2015}
+\begin{document}
+\maketitle
+\section*{TD 8 Questions 7 à 13}
+
+\subsection*{Question 7}
+
+On cherche $m$ avec $\delta(ev_x(m),y)\leq\frac{n-k}{2}$ sous l'hypothèse qu'il existe. On sait (Question 5) que cet $m$ est unique.
+
+On construit $Q(X,Y)=P_1(X)+YP_2(X)$ avec $\forall i \in \Ens{0}{n-1} \ Q(x_i,y_i)=0$, $\deg P1<\frac{n+k}{2}$ et $\deg P2\leq \frac{n-k}{2}$
+
+Alors $Q(X,\sum_{i=0}^{k-1}m_iX^i)=P_1(X)+\left(\sum_{i=0}^{k-1}m_iX^i\right)P_2(X)$ est nul quand  $y_i=ev_x(m_i)$ donc en  $\frac{n+k}{2}$ points car $\delta(ev_x(m),y)\leq\frac{n-k}{2}$. 
+
+Or $\deg \left[ Q(X,\sum_{i=0}^{k-1}m_iX^i) \right]<\frac{n+k}{2}$. Donc $Q(X,\sum_{i=0}^{k-1}m_iX^i)=0$
+
+Donc $ev_x(m)=\left(-\frac{P1(x_i)}{P2(x_i)}\right)_{i\in \Ens{0}{n-1}}$.
+
+Puis on retrouve $m$ par interpolation.
+
+Cout 
+\begin{itemize}
+\item Calcul de $P_1,P_2$ : (Euclide) $\OO{M(n)\log(n)}$
+\item Calcul de $ev_x(m)$ : (évaluation multipoint) $\OO{\frac{n}{k}M(k)\log{k}}$  
+\item Retrouver $m$ : (interpolation) $\OO{M(k)\log(k)}$
+\item Total : $\OO{M(n)\log(n)}$
+\end{itemize}
+
+\subsection*{Question 8}
+
+Il s'agit de généraliser la question 6. On avait utilisé la décompostion d'Euclide : $U_iR+V_i\prod_{i=0}^{n-1}(X-x1)=W_i$ 
+
+On peut généraliser l'algorithme à n termes : $\sum_{j=0}^{d_y}U_{i,j}R+V_i\prod_{i=0}^{n-1}(X-x_i)=W_i$ 
+
+Puis choisir $Q(X,Y)=\sum_{j=0}^{d_y}U_{i,j}Y^j-W_i$ avec un $i$ compatible aux degrés demandés.
+
+\subsection*{Question 9}
+
+De même qu'en question 7. On vérifie juste $\deg \left[ Q(X,\sum_{i=0}^{k-1}m_iX^i) \right] \leq \max_j \{j\cdot \deg [\sum_{i=0}^{k-1}m_iX^i]+\deg P_j \} \leq \max_j \{j (k-1)+d_x-j(k-1)-1 \}\leq \max_j \{d_x-1 \}\leq d_x-1 < {n-\theta }$. Donc étant nul en $n-\theta$ points car $\delta(ev_x(m),y)\leq\theta$, le polynome est nul partout.
+
+\subsection*{Question 10}
+
+On a avec (1) et $d_x=n-\theta$:
+$$ \left(n-\theta-\frac{(k-1)d_y}{2}\right)\left(d_y+1)\right)>n$$
+
+soit $n\cdot d_y-\theta(d_y+1)-\frac{(k-1)d_y}{2}\left(d_y+1)\right)>0$
+
+soit $-\frac{k-1}{2}d_y^2+\left(n-\theta-\frac{k-1}{2}\right)dy-\theta>0$
+  
+soit $d_y^2-\left(\frac{2}{k-1}(n-\theta)+1)\right)d_y+\frac{2\theta}{k-1}<0$
+
+soit $\left(d_y-\frac{1}{k-1}(n-\theta)-\frac{1}{2}\right)^2>\frac{2\theta}{k-1}-\left(\frac{1}{k-1}(n-\theta)-\frac{1}{2}\right)^2$
+
+soit $\left(d_y-\frac{1}{k-1}(n-\theta)-\frac{1}{2}\right)^2>\frac{8\theta(k-1)-4(n-\theta)^2+4(n\theta)(k-1)-(k-1)^2}{4(k-1)^2}$
+
+Ayant $d_y>=0$, maximiser $\theta$ revient à résoudre $\left(\frac{1}{k-1}(n-\theta)+\frac{1}{2}\right)^2=\frac{8\theta(k-1)-4(n-\theta)^2+4(n\theta)(k-1)-(k-1)^2}{4(k-1)^2}$
+
+Ce qui donne $\theta=\left\lfloor n+\frac{k-1}{2}-\frac{\sqrt{8n(k-1)+(k-1)^2}}{2}\right\rfloor$ ($\theta est entier$)
+
+
+\subsection*{Question 11}
+
+Pour appliquer le lemme de Hensel.
+
+$\partial_2 Q(X,Y)=\sum_{i=0}^{d_y-1}P_{i+1}(X)Y^i\neq 0$
+
+En commencant par $S_0$ une racine avec par $S_{i+1}=S_i-\frac{Q(X,S_i(X))}{\partial _2 Q(X,S_i(X))} \mod X^{2^i}$ on obtient par Hensel $Q(X,S_{\log_2 n})=0$ 
+
+Il suffit de prendre tout les $S_0$ racines pour obtenir tout les solutions de $Q(X,S(X))=0$
+
+ La complexité de calcul d'une solution est $\OO{M(n)}$ et il y a $k$ racines. Donc en tout la complexité est $\OO{kM(n)}$
+
+\subsection*{Question 12}
+
+En terme de correcteur d'erreur cela signifie qu'un mot de $\FF_q^k$  sera projetté dans $\FF_q^n$ par $ev_x$.   $\theta$ est le taux d'erreur admissible, c'est à dire que si moins de $\theta$ coefficiant de la projection sont modifiés il est toujours possible de retrouver $m$ et ce avec une complexité en $\OO{kM(n)}$. 
+
+\subsection*{Question 13}
+
+
+\end{document}
