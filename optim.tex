@@ -42,9 +42,9 @@ Pour le dual, $y_e=1$ si $e$ est choisit ou $0$ sinon, on maximise le nombre de 
 Objectif : trouver $f$ tel que $SC*\leq f(R-SC)$
 
 \subsubsection*{Si les ensembles de S sont bornés}
- Notons $N_0=\max{|s|\ s\in S}$
+ Notons $N_0$ la borne sur le cardinal des ensembles (en particulier $N_0 \geq |s| \ \forall s\in S$)
 
-$f=N_0$ répond au problème. En effet il on prend l'optimum réel, en multipliant la solution par $N_0$, la condition sur $e$ :  $\sum_{s \in S | e \in s} x_s \geq N_0$ impose qu'il existe un des termes de la somme plus grand que 1 (par définition de $N_0$). On peut donc prendre la partie entière des $x_s$ et respecter le système d'origine, l'objectif de cette solution est alors inférieur à $N_0$ fois l'objectif du système réel optimal.
+$f(x)=N_0\cdot x$ répond au problème. En effet il on prend l'optimum réel, en multipliant la solution par $N_0$, la condition sur $e$ :  $\sum_{s \in S | e \in s} x_s \geq N_0$ impose qu'il existe un des termes de la somme plus grand que 1 (par définition de $N_0$). On peut donc prendre la partie entière des $x_s$ et respecter le système d'origine, l'objectif de cette solution est alors inférieur à $N_0$ fois l'objectif du système réel optimal.
 
 \subsubsection*{Si les ensembles de S ont une taille $\frac{n}{2}$}
 
@@ -62,7 +62,7 @@ Pour l'instance entière :
 
 $\PP{E=\bigcup_{s\in S_0} s}={\left(\frac{n-1}{n}\right)}^n \rightarrow \frac{1}{e}$
 
-Ainsi avec probabilité non négligeable, $SC* \leq \log n  (R-SC*)$
+Ainsi avec probabilité non négligeable, $SC* \leq \log n  \cdot (R-SC*)$. Ce qui contredit l'exitence de $f$.
 
 \subsubsection*{Contre-exemple}
 
